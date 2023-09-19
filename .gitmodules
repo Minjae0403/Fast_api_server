@@ -1,0 +1,3 @@
+[submodule "private"]
+	path = private
+	url = https://github.com/Minjae0403/Fast_api_private.git
