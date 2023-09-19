@@ -43,19 +43,19 @@ def main(Main_Page_Url):
         print('error:', e)
         quit()
 
-def connect_db(title_text):
+def connect_db(Main_Page_Url):
     
     # MySQL 데이터베이스에 연결
     db_engine = create_engine(f'mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_database}')
 
-    query = f"SELECT title FROM {table_name};"
+    query = f"SELECT url FROM {table_name};"
 
     with db_engine.connect() as connection:
         result = connection.execute(text(query))
         # 쿼리 결과 처리
         for row in result:
-            title = row['title']  # 'title'은 쿼리 결과의 컬럼 이름에 따라 조정
-            if title == title_text:
+            url = row['url']  # 'title'은 쿼리 결과의 컬럼 이름에 따라 조정
+            if url == Main_Page_Url:
                 db_title = False
                 break
             else:
@@ -88,10 +88,10 @@ app = FastAPI()
 
 @app.get("/crawling/{Main_Page_Url}")
 def process(Main_Page_Url:str):
-    Main_Page_Url = 'https://www.youtube.com/watch?'+Main_Page_Url
-    title_text, scrpit_text = main(Main_Page_Url)
-    db_title = connect_db(title_text)
+    Main_Page_Url = 'https://www.youtube.com/watch?v='+Main_Page_Url
+    db_title = connect_db(Main_Page_Url)  
     if db_title:
+        title_text, scrpit_text = main(Main_Page_Url)
         answer = get_products(scrpit_text)
         final = "{title: "+f"{title_text}, "+"script : " + f"{answer}" + "}"
         return final
