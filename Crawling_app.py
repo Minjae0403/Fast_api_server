@@ -1,10 +1,14 @@
 from fastapi import FastAPI
-import uvicorn
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from sqlalchemy import create_engine,text
+import uvicorn
 import time
 import openai
+import sys
+sys.path.append('C:/Users/Playdata/Desktop/git/Fast_api/Fast_api_private/')
+from api_key import api_key
+from db_connect import db_host, db_user, db_password, db_database, table_name
 
 def main(Main_Page_Url):
     try:
@@ -51,8 +55,6 @@ def connect_db(title_text):
         # 쿼리 결과 처리
         for row in result:
             title = row['title']  # 'title'은 쿼리 결과의 컬럼 이름에 따라 조정
-            # print(title)
-            # print(title_text)
             if title == title_text:
                 db_title = False
                 break
@@ -61,7 +63,7 @@ def connect_db(title_text):
     return db_title
 
 def get_products(scrpit_text):
-    openai.api_key = ''
+    openai.api_key = api_key
     query = """아래 주어진 글에서 재료만 뽑아서 아래 형태로 정리해줘. 요청한 정보외 다른글은 제거해줘.
 
                 형태 : {양파 : 1개, 당근: 1개, ...}
@@ -87,10 +89,8 @@ app = FastAPI()
 @app.get("/crawling/{Main_Page_Url}")
 def process(Main_Page_Url:str):
     Main_Page_Url = 'https://www.youtube.com/watch?'+Main_Page_Url
-    # Main_Page_Url 얘로 검색해서 동일한거 있는지 확인
     title_text, scrpit_text = main(Main_Page_Url)
     db_title = connect_db(title_text)
-    # print(db_title)
     if db_title:
         answer = get_products(scrpit_text)
         final = "{title: "+f"{title_text}, "+"script : " + f"{answer}" + "}"
