@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r /code/requirements.txt
 COPY ./app /code/app
 
 # 실행
-CMD ["uvicorn", "app.Crawling_app:app", "--host", "0.0.0.0", "--port", "3000:3000"]
+CMD ["uvicorn", "app.Crawling_app:app", "--host", "0.0.0.0", "--port", "3000"]

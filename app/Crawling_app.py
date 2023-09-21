@@ -99,5 +99,5 @@ def process(Main_Page_Url:str):
       print("이미 등록된 자료.")
       return "이미 등록된 자료."
 
-if __name__ == '__main__':
-    uvicorn.run("Crawling_app:app", host='localhost', port=3000, reload=True)
+# if __name__ == '__main__':
+#     uvicorn.run("Crawling_app:app", host='localhost', port=3000, reload=True)
