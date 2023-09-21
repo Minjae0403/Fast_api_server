@@ -53,6 +53,8 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ghcr.io/${{ github.actor }}/server_image:latest
+          token: ${{ secrets.LINCOOK }}
+          submodules: true
   
   deploy:
     needs: build
