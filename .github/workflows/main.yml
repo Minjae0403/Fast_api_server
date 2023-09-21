@@ -52,7 +52,7 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.LINCOOK }}
-          token: ${{ secrets.LINCOOK }}
+          github-token: ${{ secrets.LINCOOK }}
           submodules: true
           builder: ${{ steps.buildx.outputs.name }}
           push: true
