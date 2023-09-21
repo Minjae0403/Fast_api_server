@@ -86,7 +86,7 @@ def get_products(scrpit_text):
 
 app = FastAPI()
 
-@app.get("/crawling/{Main_Page_Url}")
+@app.get("/{Main_Page_Url}")
 def process(Main_Page_Url:str):
     Main_Page_Url = 'https://www.youtube.com/watch?v='+Main_Page_Url
     db_title = connect_db(Main_Page_Url)  
