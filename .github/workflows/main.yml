@@ -23,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.Lincook }}
+          token: ${{ secrets.LINCOOK }}
           submodules: true
       
       - name: Setup docker buildx
@@ -42,7 +42,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.Lincook }}
+          password: ${{ secrets.LINCOOK }}
           # 우리가 방금 복사해서 setting secrets 에 붙여줬던 token 이다. 이름을 기억해 넣어주자.
           # 우리의 ghcr.io 에 접근하기 위함이다.
         
