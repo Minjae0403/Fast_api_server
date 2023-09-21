@@ -54,7 +54,7 @@ jobs:
           submodules: true
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ env.DOCKER_IMAGE }}:latest
+          tags: ghcr.io/${{ github.actor }}/server_image:latest
           
   
   deploy:
