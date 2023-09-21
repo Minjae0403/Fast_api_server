@@ -13,5 +13,7 @@ RUN pip install --no-cache-dir -r /code/requirements.txt
 # 이제 app 에 있는 파일들을 /code/app 에 복사
 COPY ./app /code/app
 
+EXPOSE 3000
+
 # 실행
 CMD ["uvicorn", "app.Crawling_app:app", "--host", "0.0.0.0", "--port", "3000"]
