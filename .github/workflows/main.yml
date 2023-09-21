@@ -52,7 +52,7 @@ jobs:
         with:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ghcr.io/${{ github.actor }}/server_image:latest
+          tags: ${{ env.DOCKER_IMAGE }}:latest
           token: ${{ secrets.LINCOOK }}
           submodules: true
   
