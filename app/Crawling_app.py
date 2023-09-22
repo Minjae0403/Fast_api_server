@@ -6,7 +6,7 @@ import uvicorn
 import time
 import openai
 import sys
-sys.path.append('/Fast_api_server/private')
+sys.path.append('/code/private/')
 from api_key import api_key
 from db_connect import db_host, db_user, db_password, db_database, table_name
 
