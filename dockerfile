@@ -12,6 +12,7 @@ RUN pip install --no-cache-dir -r /code/requirements.txt
 
 # 이제 app 에 있는 파일들을 /code/app 에 복사
 COPY ./app /code/app
+COPY ./private /code/private
 
 EXPOSE 3000
 
