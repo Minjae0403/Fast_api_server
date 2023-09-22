@@ -7,8 +7,8 @@ import time
 import openai
 import sys
 sys.path.append('C:/Users/Playdata/Desktop/git/Fast_api/Fast_api_private/')
-from api_key import api_key
-from db_connect import db_host, db_user, db_password, db_database, table_name
+from private.api_key import api_key
+from private.db_connect import db_host, db_user, db_password, db_database, table_name
 
 def main(Main_Page_Url):
     try:
