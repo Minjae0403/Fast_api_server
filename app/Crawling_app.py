@@ -6,9 +6,10 @@ import uvicorn
 import time
 import openai
 import sys
-sys.path.append('/code/private/')
-from api_key import api_key
-from db_connect import db_host, db_user, db_password, db_database, table_name
+import os
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from private.api_key import api_key
+from private.db_connect import db_host, db_user, db_password, db_database, table_name
 
 def main(Main_Page_Url):
     try:
