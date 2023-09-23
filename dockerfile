@@ -25,7 +25,5 @@ COPY ./private /private
 
 EXPOSE 3000
 
-WORKDIR /app
-
 # 실행
-CMD ["uvicorn", "Crawling_app.py:app", "--host", "0.0.0.0", "--port", "3000"]
+CMD ["uvicorn", "app.Crawling_app.py:app", "--host", "0.0.0.0", "--port", "3000"]
