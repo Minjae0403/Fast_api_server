@@ -65,5 +65,6 @@ tqdm==4.66.1
 trio==0.22.2
 urllib3==2.0.2
 uvicorn==0.23.2
+webdriver-manager==4.0.0
 wsproto==1.2.0
 yarl==1.9.2
