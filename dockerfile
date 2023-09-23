@@ -4,6 +4,15 @@ FROM python:3.11.4
 # /code 폴더 만들기
 WORKDIR /code
 
+RUN apt-get -y update
+RUN apt install wget
+RUN apt install unzip  
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt -y install ./google-chrome-stable_current_amd64.deb
+RUN wget 	https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/117.0.5938.92/linux64/chromedriver-linux64.zip
+RUN mkdir chrome
+RUN unzip /tmp/chromedriver-linux64.zip chromedriver -d /usr/src/chrome
+
 # ./requirements.txt 를 /code/requirements.txt 로 복사
 COPY ./requirements.txt /code/requirements.txt
 

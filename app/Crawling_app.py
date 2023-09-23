@@ -31,7 +31,7 @@ def main(Main_Page_Url):
         # options.add_argument("--window-size=1920, 1200")
         # options.add_argument("--disable-dev-shm-usage")
         
-        service = ChromeService(executable_path = "/usr/bin")
+        service = ChromeService(executable_path = "/usr/src/chrome/chromedriver")
         driver = webdriver.Chrome(service=service, options=options)
         driver.get(Main_Page_Url)
         time.sleep(2)
