@@ -12,9 +12,9 @@ def main(Main_Page_Url):
     try:
         # headless option
         options = webdriver.ChromeOptions()
-        options.add_argument("--incognito")
+        # options.add_argument("--incognito")
         options.add_argument("--headless")
-        options.add_argument("--disable-setudid-sandbox")
+        # options.add_argument("--disable-setudid-sandbox")
 
         driver = webdriver.Chrome(options=options)
         driver.get(Main_Page_Url)
