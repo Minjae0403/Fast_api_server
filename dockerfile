@@ -10,9 +10,6 @@ COPY ./requirements.txt /code/requirements.txt
 # requirements.txt 를 보고 모듈 전체 설치(-r)
 RUN pip install --no-cache-dir -r /code/requirements.txt
 
-RUN apt-get update -y && apt-get install -y google-chrome-stable
-RUN apt-get install -yqq unzip && wget -q https://chromedriver.storage.googleapis.com/117.0.5938.92/chromedriver_linux64.zip && unzip chromedriver_linux64.zip && mv chromedriver /usr/bin/chromedriver && chmod +x /usr/bin/chromedriver && rm chromedriver_linux64.zip
-
 # 이제 app 에 있는 파일들을 /code/app 에 복사
 COPY ./app /code/app
 COPY ./private /code/private
