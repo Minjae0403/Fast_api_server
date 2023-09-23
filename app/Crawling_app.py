@@ -2,6 +2,7 @@ import uvicorn, time, openai, sys, os, re
 from fastapi import FastAPI
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 from sqlalchemy import create_engine,text
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -17,8 +18,9 @@ def main(Main_Page_Url):
         options.add_argument("--disable-gpu")
         # options.add_argument("--window-size=1920, 1200")
         options.add_argument("--disable-dev-shm-usage")
-
-        driver = webdriver.Chrome(options=options)
+        
+        service = Service(executable_path="your_dir_path/chromedriver.exe_")
+        driver = webdriver.Chrome(service=service, options=options)
         driver.get(Main_Page_Url)
         time.sleep(2)
 
