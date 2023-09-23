@@ -11,9 +11,10 @@ from private.db_connect import db_host, db_user, db_password, db_database, table
 def main(Main_Page_Url):
     try:
         options = webdriver.ChromeOptions()
-        # options.add_argument("--incognito")
+        options.add_argument("--verbose")
         options.add_argument("--headless")
-        options.add_argument("--disable-setudid-sandbox")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-gpu")
 
         driver = webdriver.Chrome(options=options)
         driver.get(Main_Page_Url)
