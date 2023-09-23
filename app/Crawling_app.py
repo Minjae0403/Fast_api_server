@@ -2,9 +2,7 @@ import uvicorn, time, openai, sys, os, re
 from fastapi import FastAPI
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
 from sqlalchemy import create_engine,text
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -21,8 +19,8 @@ def main(Main_Page_Url):
         # options.add_argument("--window-size=1920, 1200")
         options.add_argument("--disable-dev-shm-usage")
         
-        # service = ChromeService(executable_path="/usr/bin/chromedriver")
-        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+        Service = ChromeService(executable_path="/usr/bin/chromedriver")
+        driver = webdriver.Chrome(service=Service, options=options)
         driver.get(Main_Page_Url)
         time.sleep(2)
 
