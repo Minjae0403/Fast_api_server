@@ -1,13 +1,11 @@
+import uvicorn, time, openai, sys, os, re
 from fastapi import FastAPI
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from sqlalchemy import create_engine,text
-import uvicorn
-import time
-import openai
-import sys
-import os
-import re
+
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from private.api_key import api_key
 from private.db_connect import db_host, db_user, db_password, db_database, table_name
@@ -20,7 +18,7 @@ def main(Main_Page_Url):
         options.add_argument("--headless")
         options.add_argument("--disable-setudid-sandbox")
 
-        driver = webdriver.Chrome(options=options)
+        driver = webdriver.Chrome(options=options, service=Service(ChromeDriverManager().install()))
         driver.get(Main_Page_Url)
         time.sleep(2)
 
