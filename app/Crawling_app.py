@@ -55,6 +55,7 @@ def connect_db(Main_Page_Url):
         result = connection.execute(text(query))
         # 쿼리 결과 처리
         for row in result:
+            print(row)
             url = row['url']  # 'title'은 쿼리 결과의 컬럼 이름에 따라 조정
             if url == Main_Page_Url:
                 db_title = False
