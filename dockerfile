@@ -9,9 +9,10 @@ RUN apt install wget
 RUN apt install unzip
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN apt -y install ./google-chrome-stable_current_amd64.deb
-RUN wget -O /tmp/chromedriver.zip https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/117.0.5938.92/linux64/chromedriver-linux64.zip
+RUN wget -O chromedriver.zip https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/117.0.5938.92/linux64/chromedriver-linux64.zip
 RUN mkdir chrome
-RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/bin
+RUN unzip chromedriver.zip
+RUN mv chromedriver-linux64/chromedriver /usr/bin
 
 # ./requirements.txt 를 /requirements.txt 로 복사
 COPY ./requirements.txt /code/requirements.txt
