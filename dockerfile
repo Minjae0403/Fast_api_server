@@ -17,7 +17,7 @@ RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/src/chrome
 COPY ./requirements.txt /code/requirements.txt
 
 # requirements.txt 를 보고 모듈 전체 설치(-r)
-RUN pip install --no-cache-dir -r --upgrade -r /code/requirements.txt
+RUN pip install --no-cache-dir -r /code/requirements.txt
 
 # 이제 app 에 있는 파일들을 code/app 에 복사
 COPY ./app /code/app
