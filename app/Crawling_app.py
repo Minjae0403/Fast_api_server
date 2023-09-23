@@ -2,7 +2,10 @@ import uvicorn, time, openai, sys, os, re
 from fastapi import FastAPI
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 from sqlalchemy import create_engine,text
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -11,16 +14,26 @@ from private.db_connect import db_host, db_user, db_password, db_database, table
 
 def main(Main_Page_Url):
     try:
-        options = webdriver.ChromeOptions()
-        options.add_argument("--verbose")
-        options.add_argument("--headless")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-gpu")
+        options = Options()
+        options.add_argument('--no-sandbox')        
+        options.add_argument('--headless')       
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument("--disable-setuid-sandbox") 
+        options.add_argument('--disable-gpu')
+        options.add_argument("--window-size=1920,1080")
+        options.add_argument('--ignore-certificate-errors')
+        options.add_argument('--allow-running-insecure-content')
+
+        # options = webdriver.ChromeOptions()
+        # options.add_argument("--verbose")
+        # options.add_argument("--headless")
+        # options.add_argument("--no-sandbox")
+        # options.add_argument("--disable-gpu")
         # options.add_argument("--window-size=1920, 1200")
-        options.add_argument("--disable-dev-shm-usage")
+        # options.add_argument("--disable-dev-shm-usage")
         
-        Service = ChromeService(executable_path="/usr/bin/chromedriver")
-        driver = webdriver.Chrome(service=Service, options=options)
+        # Service = ChromeService(executable_path="/usr/bin/chromedriver")
+        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         driver.get(Main_Page_Url)
         time.sleep(2)
 
