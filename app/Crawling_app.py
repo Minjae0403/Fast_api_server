@@ -7,6 +7,7 @@ import time
 import openai
 import sys
 import os
+import re
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from private.api_key import api_key
 from private.db_connect import db_host, db_user, db_password, db_database, table_name
@@ -53,10 +54,9 @@ def connect_db(Main_Page_Url):
 
     with db_engine.connect() as connection:
         result = connection.execute(text(query))
-        # 쿼리 결과 처리
-        for row in result:
-            print(row)
-            url = row['url']  # 'title'은 쿼리 결과의 컬럼 이름에 따라 조정
+
+        for row in result.fetchall():  
+            url = re.sub("[()',]","",str(row))
             if url == Main_Page_Url:
                 db_title = False
                 break
@@ -103,3 +103,7 @@ def process(Main_Page_Url:str):
 
 if __name__ == '__main__':
     uvicorn.run("Crawling_app:app", host='0.0.0.0', port=3000, reload=True)
+
+# # local test용
+# if __name__ == '__main__':
+#     uvicorn.run("Crawling_app:app", host='localhost', port=3000, reload=True)
