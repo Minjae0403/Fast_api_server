@@ -33,7 +33,7 @@ def main(Main_Page_Url):
         # options.add_argument("--disable-dev-shm-usage")
         
         # Service = ChromeService(executable_path="/usr/bin/chromedriver")
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options,)
         driver.get(Main_Page_Url)
         time.sleep(2)
 
