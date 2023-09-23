@@ -15,7 +15,7 @@ def main(Main_Page_Url):
         options.add_argument("--headless")
         options.add_argument("--disable-setudid-sandbox")
 
-        driver = webdriver.Chrome(executable_path='./chromedriver',options=options)
+        driver = webdriver.Chrome(options=options)
         driver.get(Main_Page_Url)
         time.sleep(2)
 
