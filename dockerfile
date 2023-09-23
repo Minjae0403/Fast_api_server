@@ -19,11 +19,11 @@ COPY ./requirements.txt /code/requirements.txt
 # requirements.txt 를 보고 모듈 전체 설치(-r)
 RUN pip install --no-cache-dir -r /code/requirements.txt
 
-# 이제 app 에 있는 파일들을 /code/app 에 복사
-COPY ./app /code/app
-COPY ./private /code/private
+# 이제 app 에 있는 파일들을 /app 에 복사
+COPY ./app /app
+COPY ./private /private
 
 EXPOSE 3000
 
 # 실행
-CMD ["uvicorn", "/code/app/Crawling_app:app", "--host", "0.0.0.0", "--port", "3000"]
+CMD ["uvicorn", "app.Crawling_app:app", "--host", "0.0.0.0", "--port", "3000"]
