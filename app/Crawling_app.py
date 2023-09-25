@@ -80,7 +80,7 @@ def get_products(scrpit_text):
     openai.api_key = api_key
     query = """아래 주어진 글에서 재료만 뽑아서 아래 형태로 정리해줘. 요청한 정보외 다른글은 제거해줘.
 
-                형태 : {양파 : 1개, 당근: 1개, ...}
+                형태 : {'양파' : '1개', '당근': '1개', ...}
                 
                 """ + f"""글 : {scrpit_text}"""
                 
