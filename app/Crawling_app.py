@@ -84,8 +84,8 @@ def main_bs4(Main_Page_Url):
         page_source = driver.page_source 
         soup = BeautifulSoup(page_source, "html.parser")
         
-        title_text = soup.find(id='above-the-fold')
-        title_text = title_text.find(id='title')
+        soup = soup.find(id='above-the-fold')
+        title_text = soup.find(id='title')
         title_text = title_text.get_text().replace('\n','')
         
         scrpit_text = soup.find(id='description-inline-expander')
