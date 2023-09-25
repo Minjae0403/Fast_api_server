@@ -100,17 +100,14 @@ def get_products(scrpit_text):
 
 app = FastAPI()
 
-origins = [
-    "*"
-]​
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get("/{Main_Page_Url}")
 def process(Main_Page_Url:str):
