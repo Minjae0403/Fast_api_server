@@ -116,15 +116,14 @@ def process(URL_id:str):
     if db_title:
         title_text, scrpit_text = main(Main_Page_Url)
         answer = get_products(scrpit_text)
-        final = "{title: "+f"{title_text}, "+"script : " + f"{answer}" + "}"
+        final = {}
+        final['title'] = title_text
+        final['script'] = answer
         return final
     else:
       raise HTTPException(status_code=409, detail="videoId find in DB")
     #   print("이미 등록된 자료.")
     #   return "이미 등록된 자료."
-
-# if __name__ == '__main__':
-#     uvicorn.run("Crawling_app:app", host='0.0.0.0', port=3000, reload=True)
 
 # # local test용
 # if __name__ == '__main__':
