@@ -117,7 +117,7 @@ def process(URL_id:str):
         final = {}
         final['title'] = title_text
         final['description_1'] = answer
-        final['description_2'] = answer
+        final['description_2'] = answer_2
         return final
     else:
       raise HTTPException(status_code=409, detail="videoId find in DB")
