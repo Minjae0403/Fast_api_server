@@ -113,7 +113,7 @@ def process(URL_id:str):
     if db_title:
         title_text, scrpit_text = main(Main_Page_Url)
         answer = get_products(scrpit_text)
-        answer_2 = re.sub("}{:'","",str(answer)).replace(", ","\n")
+        answer_2 = str(answer).replace("{","").replace("}","").replace("'","").replace(":","").replace(", ","\n")
         final = {}
         final['title'] = title_text
         final['description_1'] = answer
