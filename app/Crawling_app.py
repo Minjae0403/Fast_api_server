@@ -22,25 +22,17 @@ def main(Main_Page_Url):
         options.add_argument("--window-size=1920,1080")
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--allow-running-insecure-content')
-
-        # options = webdriver.ChromeOptions()
-        # options.add_argument("--verbose")
-        # options.add_argument("--headless")
-        # options.add_argument("--no-sandbox")
-        # options.add_argument("--disable-gpu")
-        # options.add_argument("--window-size=1920, 1200")
-        # options.add_argument("--disable-dev-shm-usage")
         
-        # # server
-        # service = ChromeService(executable_path = "/usr/bin/chromedriver")
-        # driver = webdriver.Chrome(service=service, options=options)
-        # driver.get(Main_Page_Url)
-        # time.sleep(1)
-
-        # local
-        driver = webdriver.Chrome(options=options)
+        # server
+        service = ChromeService(executable_path = "/usr/bin/chromedriver")
+        driver = webdriver.Chrome(service=service, options=options)
         driver.get(Main_Page_Url)
         time.sleep(1)
+
+        # # local
+        # driver = webdriver.Chrome(options=options)
+        # driver.get(Main_Page_Url)
+        # time.sleep(1)
 
         region = driver.find_element(By.ID, "expand")
         region.click()
@@ -121,15 +113,17 @@ def process(URL_id:str):
     if db_title:
         title_text, scrpit_text = main(Main_Page_Url)
         answer = get_products(scrpit_text)
+        answer_2 = re.sub(":","",answer)
         final = {}
         final['title'] = title_text
-        final['description'] = answer
+        final['description_1'] = answer
+        final['description_2'] = answer
         return final
     else:
       raise HTTPException(status_code=409, detail="videoId find in DB")
     #   print("이미 등록된 자료.")
     #   return "이미 등록된 자료."
 
-# local test용
-if __name__ == '__main__':
-    uvicorn.run("Crawling_app:app", host='localhost', port=3000, reload=True)
+# # local test용
+# if __name__ == '__main__':
+#     uvicorn.run("Crawling_app:app", host='localhost', port=3000, reload=True)
