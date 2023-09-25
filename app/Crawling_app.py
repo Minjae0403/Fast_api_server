@@ -1,4 +1,4 @@
-import time, openai, sys, os, re
+import uvicorn, time, openai, sys, os, re
 from fastapi import FastAPI ,HTTPException
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -57,7 +57,7 @@ def main(Main_Page_Url):
         print('error:', e)
         quit()
 
-def connect_db(Main_Page_Url):
+def connect_db(URL_id):
     
     # MySQL 데이터베이스에 연결
     db_engine = create_engine(f'mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_database}')
@@ -69,7 +69,7 @@ def connect_db(Main_Page_Url):
 
         for row in result.fetchall():  
             url = re.sub("[()',]","",str(row))
-            if url == Main_Page_Url:
+            if url == URL_id:
                 db_title = False
                 break
             else:
@@ -109,10 +109,10 @@ app.add_middleware(
 )
 
 
-@app.get("/{Main_Page_Url}")
-def process(Main_Page_Url:str):
-    Main_Page_Url = 'https://www.youtube.com/watch?v='+Main_Page_Url
-    db_title = connect_db(Main_Page_Url)  
+@app.get("/{URL_id}")
+def process(URL_id:str):
+    Main_Page_Url = 'https://www.youtube.com/watch?v='+ URL_id
+    db_title = connect_db(URL_id)  
     if db_title:
         title_text, scrpit_text = main(Main_Page_Url)
         answer = get_products(scrpit_text)
