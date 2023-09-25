@@ -31,21 +31,26 @@ def main(Main_Page_Url):
         # options.add_argument("--window-size=1920, 1200")
         # options.add_argument("--disable-dev-shm-usage")
         
-        service = ChromeService(executable_path = "/usr/bin/chromedriver")
-        driver = webdriver.Chrome(service=service, options=options)
+        # # server
+        # service = ChromeService(executable_path = "/usr/bin/chromedriver")
+        # driver = webdriver.Chrome(service=service, options=options)
+        # driver.get(Main_Page_Url)
+        # time.sleep(1)
+
+        # local
+        driver = webdriver.Chrome(options=options)
         driver.get(Main_Page_Url)
-        time.sleep(2)
+        time.sleep(1)
 
         region = driver.find_element(By.ID, "expand")
         region.click()
-        time.sleep(2)
+        time.sleep(1)
 
         title = driver.find_elements(By.XPATH, '//*[@id="title"]/h1/yt-formatted-string')
+        script = driver.find_elements(By.XPATH, '//*[@id="description-inline-expander"]')
 
         for i in title:
             title_text = i.text
-
-        script = driver.find_elements(By.XPATH, '//*[@id="description-inline-expander"]')
 
         for i in script:
             scrpit_text = i.text
@@ -118,13 +123,13 @@ def process(URL_id:str):
         answer = get_products(scrpit_text)
         final = {}
         final['title'] = title_text
-        final['script'] = answer
+        final['description'] = answer
         return final
     else:
       raise HTTPException(status_code=409, detail="videoId find in DB")
     #   print("이미 등록된 자료.")
     #   return "이미 등록된 자료."
 
-# # local test용
-# if __name__ == '__main__':
-#     uvicorn.run("Crawling_app:app", host='localhost', port=3000, reload=True)
+# local test용
+if __name__ == '__main__':
+    uvicorn.run("Crawling_app:app", host='localhost', port=3000, reload=True)
