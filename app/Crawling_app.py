@@ -2,8 +2,7 @@ import uvicorn, time, openai, sys, os, re
 from fastapi import FastAPI
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.service import Service as ChromeService
+from starlette.middleware.cors import CORSMiddleware
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from sqlalchemy import create_engine,text
@@ -100,6 +99,18 @@ def get_products(scrpit_text):
     return answer
 
 app = FastAPI()
+
+origins = [
+    "*"
+]​
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/{Main_Page_Url}")
 def process(Main_Page_Url:str):
