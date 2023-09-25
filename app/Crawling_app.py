@@ -2,11 +2,8 @@ import uvicorn, time, openai, sys, os, re
 from fastapi import FastAPI
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-<<<<<<< HEAD
 from starlette.middleware.cors import CORSMiddleware
-=======
 from selenium.webdriver.chrome.service import Service as ChromeService
->>>>>>> 524c191235556fed5ae24914b3a71f4db6dd7d3e
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from sqlalchemy import create_engine,text
