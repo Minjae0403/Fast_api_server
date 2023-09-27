@@ -6,6 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
 from sqlalchemy import create_engine,text
+from bs4 import BeautifulSoup
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from private.api_key import api_key
@@ -48,6 +49,48 @@ def main(Main_Page_Url):
             scrpit_text = i.text
 
         scrpit_text = scrpit_text.replace('\n',' ')
+        return title_text, scrpit_text
+    
+    except Exception as e:
+        print('error:', e)
+        quit()
+        
+def main_bs4(Main_Page_Url):
+    try:
+        options = Options()
+        options.add_argument('--no-sandbox')        
+        options.add_argument('--headless')       
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument("--disable-setuid-sandbox") 
+        options.add_argument('--disable-gpu')
+        options.add_argument("--window-size=1920,1080")
+        options.add_argument('--ignore-certificate-errors')
+        options.add_argument('--allow-running-insecure-content')
+        
+        # server
+        service = ChromeService(executable_path = "/usr/bin/chromedriver")
+        driver = webdriver.Chrome(service=service, options=options)
+        driver.get(Main_Page_Url)
+        time.sleep(1)
+
+        # # local
+        # driver = webdriver.Chrome(options=options)
+        # driver.get(Main_Page_Url)
+        # time.sleep(1)
+
+        region = driver.find_element(By.ID, "expand")
+        region.click()
+        
+        page_source = driver.page_source 
+        soup = BeautifulSoup(page_source, "html.parser")
+        
+        soup = soup.find(id='above-the-fold')
+        title_text = soup.find(id='title')
+        title_text = title_text.get_text().replace('\n','')
+        
+        scrpit_text = soup.find(id='description-inline-expander')
+        scrpit_text = scrpit_text.get_text().replace('\n',' ')
+        
         return title_text, scrpit_text
     
     except Exception as e:
@@ -112,9 +155,9 @@ def process(URL_id:str):
     Main_Page_Url = 'https://www.youtube.com/watch?v='+ URL_id
     db_title = connect_db(URL_id)  
     if db_title:
-        title_text, scrpit_text = main(Main_Page_Url)
+        title_text, scrpit_text = main_bs4(Main_Page_Url)
         answer = get_products(scrpit_text)
-        answer_2 = re.sub(":","",answer)
+        answer_2 = str(answer).replace("{","").replace("}","").replace("'","").replace(":","").replace(", ","\n")
         final = {}
         final['title'] = title_text
         final['description_1'] = answer
