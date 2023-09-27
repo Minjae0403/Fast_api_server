@@ -136,6 +136,7 @@ def get_products(scrpit_text):
         temperature=0.4
     )
     answer = response['choices'][0]['message']['content']
+    
     answer = eval(answer)
     return answer
 
