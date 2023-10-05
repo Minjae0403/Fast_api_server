@@ -106,14 +106,16 @@ def connect_db(URL_id):
 
     with db_engine.connect() as connection:
         result = connection.execute(text(query))
-
-        for row in result.fetchall():  
-            url = re.sub("[()',]","",str(row))
-            if url == URL_id:
-                db_title = False
-                break
-            else:
-                db_title = True
+        try:
+            for row in result.fetchall():  
+                url = re.sub("[()',]","",str(row))
+                if url == URL_id:
+                    db_title = False
+                    break
+                else:
+                    db_title = True
+        except:
+            db_title = True
     return db_title
 
 def get_products(scrpit_text):
