@@ -24,16 +24,16 @@ def main(Main_Page_Url):
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--allow-running-insecure-content')
         
-        # server
-        service = ChromeService(executable_path = "/usr/bin/chromedriver")
-        driver = webdriver.Chrome(service=service, options=options)
-        driver.get(Main_Page_Url)
-        time.sleep(1)
-
-        # # local
-        # driver = webdriver.Chrome(options=options)
+        # # server
+        # service = ChromeService(executable_path = "/usr/bin/chromedriver")
+        # driver = webdriver.Chrome(service=service, options=options)
         # driver.get(Main_Page_Url)
         # time.sleep(1)
+
+        # local
+        driver = webdriver.Chrome(options=options)
+        driver.get(Main_Page_Url)
+        time.sleep(1)
 
         region = driver.find_element(By.ID, "expand")
         region.click()
@@ -67,16 +67,16 @@ def main_bs4(Main_Page_Url):
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--allow-running-insecure-content')
         
-        # server
-        service = ChromeService(executable_path = "/usr/bin/chromedriver")
-        driver = webdriver.Chrome(service=service, options=options)
-        driver.get(Main_Page_Url)
-        time.sleep(1)
-
-        # # local
-        # driver = webdriver.Chrome(options=options)
+        # # server
+        # service = ChromeService(executable_path = "/usr/bin/chromedriver")
+        # driver = webdriver.Chrome(service=service, options=options)
         # driver.get(Main_Page_Url)
         # time.sleep(1)
+
+        # local
+        driver = webdriver.Chrome(options=options)
+        driver.get(Main_Page_Url)
+        time.sleep(1)
 
         region = driver.find_element(By.ID, "expand")
         region.click()
@@ -106,16 +106,15 @@ def connect_db(URL_id):
 
     with db_engine.connect() as connection:
         result = connection.execute(text(query))
-        try:
-            for row in result.fetchall():  
-                url = re.sub("[()',]","",str(row))
-                if url == URL_id:
-                    db_title = False
-                    break
-                else:
-                    db_title = True
-        except:
-            db_title = True
+        db_title = True
+        for row in result.fetchall():  
+            url = re.sub("[()',]","",str(row))
+            if url == URL_id:
+                db_title = False
+                break
+            else:
+                db_title = True
+            
     return db_title
 
 def get_products(scrpit_text):
@@ -171,6 +170,6 @@ def process(URL_id:str):
     #   print("이미 등록된 자료.")
     #   return "이미 등록된 자료."
 
-# # local test용
-# if __name__ == '__main__':
-#     uvicorn.run("Crawling_app:app", host='localhost', port=3000, reload=True)
+# local test용
+if __name__ == '__main__':
+    uvicorn.run("Crawling_app:app", host='localhost', port=3000, reload=True)
