@@ -24,16 +24,16 @@ def main(Main_Page_Url):
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--allow-running-insecure-content')
         
-        # # server
-        # service = ChromeService(executable_path = "/usr/bin/chromedriver")
-        # driver = webdriver.Chrome(service=service, options=options)
-        # driver.get(Main_Page_Url)
-        # time.sleep(1)
-
-        # local
-        driver = webdriver.Chrome(options=options)
+        # server
+        service = ChromeService(executable_path = "/usr/bin/chromedriver")
+        driver = webdriver.Chrome(service=service, options=options)
         driver.get(Main_Page_Url)
         time.sleep(1)
+
+        # # local
+        # driver = webdriver.Chrome(options=options)
+        # driver.get(Main_Page_Url)
+        # time.sleep(1)
 
         region = driver.find_element(By.ID, "expand")
         region.click()
@@ -67,16 +67,16 @@ def main_bs4(Main_Page_Url):
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--allow-running-insecure-content')
         
-        # # server
-        # service = ChromeService(executable_path = "/usr/bin/chromedriver")
-        # driver = webdriver.Chrome(service=service, options=options)
-        # driver.get(Main_Page_Url)
-        # time.sleep(1)
-
-        # local
-        driver = webdriver.Chrome(options=options)
+        # server
+        service = ChromeService(executable_path = "/usr/bin/chromedriver")
+        driver = webdriver.Chrome(service=service, options=options)
         driver.get(Main_Page_Url)
         time.sleep(1)
+
+        # # local
+        # driver = webdriver.Chrome(options=options)
+        # driver.get(Main_Page_Url)
+        # time.sleep(1)
 
         region = driver.find_element(By.ID, "expand")
         region.click()
@@ -170,6 +170,6 @@ def process(URL_id:str):
     #   print("이미 등록된 자료.")
     #   return "이미 등록된 자료."
 
-# local test용
-if __name__ == '__main__':
-    uvicorn.run("Crawling_app:app", host='localhost', port=3000, reload=True)
+# # local test용
+# if __name__ == '__main__':
+#     uvicorn.run("Crawling_app:app", host='localhost', port=3000, reload=True)
