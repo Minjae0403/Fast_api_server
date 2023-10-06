@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
 from sqlalchemy import create_engine,text
 from bs4 import BeautifulSoup
+from fastapi.responses import JSONResponse
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from private.api_key import api_key
@@ -111,11 +112,16 @@ def connect_db(URL_id):
             url = re.sub("[()',]","",str(row))
             if url == URL_id:
                 db_title = False
+                id_query = f'SELECT contents_id FROM {table_name} WHERE url = "{URL_id}";'
+                result = connection.execute(text(id_query))
+                for result in result.fetchall():
+                    contentsId = int(*result) # *는 언패킹
+                    print(contentsId)
                 break
             else:
                 db_title = True
             
-    return db_title
+    return db_title, contentsId
 
 def get_products(scrpit_text):
     openai.api_key = api_key
@@ -155,7 +161,7 @@ app.add_middleware(
 @app.get("/{URL_id}")
 def process(URL_id:str):
     Main_Page_Url = 'https://www.youtube.com/watch?v='+ URL_id
-    db_title = connect_db(URL_id)  
+    db_title, contentsId = connect_db(URL_id)  
     if db_title:
         title_text, scrpit_text = main_bs4(Main_Page_Url)
         answer = get_products(scrpit_text)
@@ -166,7 +172,11 @@ def process(URL_id:str):
         final['description_2'] = answer_2
         return final
     else:
-      raise HTTPException(status_code=409, detail=f"videoId find in DB", headers={"video_id": "URL_id"})
+        return JSONResponse(
+        status_code=409,
+        content={"detail":"videoId find in DB","contentsId": f"{contentsId}"},
+        )
+    #   raise HTTPException(status_code=409, detail=f"videoId find in DB", headers={f"contentsId:{URL_id}"},)
     #   print("이미 등록된 자료.")
     #   return "이미 등록된 자료."
 
