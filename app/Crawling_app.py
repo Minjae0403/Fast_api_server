@@ -166,7 +166,7 @@ def process(URL_id:str):
         final['description_2'] = answer_2
         return final
     else:
-      raise HTTPException(status_code=409, detail=f"videoId find in DB", video_id = URL_id)
+      raise HTTPException(status_code=409, detail=f"videoId find in DB", headers={"video_id": "URL_id"})
     #   print("이미 등록된 자료.")
     #   return "이미 등록된 자료."
 
