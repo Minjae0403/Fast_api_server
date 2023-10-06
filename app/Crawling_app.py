@@ -108,6 +108,7 @@ def connect_db(URL_id):
     with db_engine.connect() as connection:
         result = connection.execute(text(query))
         db_title = True
+        contentsId = 0
         for row in result.fetchall():  
             url = re.sub("[()',]","",str(row))
             if url == URL_id:
@@ -120,7 +121,6 @@ def connect_db(URL_id):
                 break
             else:
                 db_title = True
-                contentsId = 0
             
     return db_title, contentsId
 
