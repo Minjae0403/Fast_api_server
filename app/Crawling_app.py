@@ -120,6 +120,7 @@ def connect_db(URL_id):
                 break
             else:
                 db_title = True
+                contentsId = 0
             
     return db_title, contentsId
 
